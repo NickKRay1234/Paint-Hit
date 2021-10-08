@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* ColorChanger workes with colliders and collisions. It change color in our cilinder(GREEN, RED)
+ * Script created by @Mykola Kalchuk.
+ */
+
 [RequireComponent(typeof(SphereCollider))]
 public class ColorChanger : MonoBehaviour
 {
@@ -14,7 +18,7 @@ public class ColorChanger : MonoBehaviour
             base.gameObject.GetComponent<Collider>().enabled = false; // Ball is unvisible; 
             StartCoroutine(ChangeColor(target.gameObject, Color.red));
             base.GetComponent<Rigidbody>().AddForce(Vector3.down * 50, ForceMode.Impulse); // Ball movement after target hiting;
-            target.gameObject.name = "Is colored by Red";
+            //target.gameObject.name = "Is colored by Red";
 
 
             Destroy(base.gameObject, .5f);
@@ -26,9 +30,9 @@ public class ColorChanger : MonoBehaviour
             // Creating and destroying a splash
             GameObject SampleSplash = Instantiate(_splash) as GameObject;
             SampleSplash.transform.parent = target.gameObject.transform;
+            //target.gameObject.name = "Is colored by Green";
             Destroy(SampleSplash, 0.1f);
-
-            target.gameObject.name = "Is colored by Green";
+            
 
             StartCoroutine(ChangeColor(target.gameObject, Color.green));
             

@@ -1,41 +1,45 @@
 using UnityEngine;
 
+
+/* BallHandler makes balls shoot in circles
+ * Script created by @Mykola Kalchuk.
+ */
+
+
 public class BallHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject _ball;
+    [SerializeField] private GameObject _dummyBall;
+    [SerializeField] private GameObject[] _circles;
+
     public static float rotationSpeed = 100;
-
-    public static Color oneColor = Color.green;
-    public GameObject ball;
-
     private float _speed = 100;
 
 
-    void Start()
+    private void Start()
     {
         MakeANewCircle();
     }
 
     
-    void Update()
+    private void Update()
     {
         if(Input.GetMouseButtonDown(0))
-        {
-            HitBall();
-        }
+            Fire();
     }
 
-    public void HitBall()
+    private void Fire()
     {
-        GameObject clone = Instantiate<GameObject>(ball, new Vector3(0, 0, -8), Quaternion.identity); // By using Generics we don't need to cast the result to a specific type;
-        clone.GetComponent<MeshRenderer>().material.color = oneColor;
+        GameObject clone = Instantiate<GameObject>(_ball, _dummyBall.transform.position, Quaternion.identity); // By using Generics we don't need to cast the result to a specific type;
+        clone.GetComponent<MeshRenderer>().material.color = Color.green;
         clone.GetComponent<Rigidbody>().AddForce(Vector3.forward * _speed, ForceMode.Impulse); // Time does not affect on ForceMode.Impulse;
     }
 
-    void MakeANewCircle()
+    private void MakeANewCircle()
     {
-        GameObject gameObject2 = Instantiate(Resources.Load("Round" + Random.Range(1, 4))) as GameObject;
-        gameObject2.transform.position = new Vector3(0, 20, 23);
-        gameObject2.name = "Circle";
+        GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
+        circle.transform.position = new Vector3(0, 20, 23);
+        circle.name = "Circle";
     }
 
 
