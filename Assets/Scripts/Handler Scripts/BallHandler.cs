@@ -11,6 +11,9 @@ public class BallHandler : MonoBehaviour
     [SerializeField] private GameObject _ball;
     [SerializeField] private GameObject _dummyBall;
     [SerializeField] private GameObject[] _circles;
+    [SerializeField] private GameObject[] _array;
+
+
 
     public static float rotationSpeed = 100;
     private float _speed = 100;
@@ -22,14 +25,15 @@ public class BallHandler : MonoBehaviour
 
     private void Start()
     {
-
         GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
         circle.transform.position = new Vector3(0, 20, 23);
         circle.name = "Circle" + _circleNumber;
 
+
         MakeANewCircle();
-        //new 
         _ballsCount = 4;
+
+        
     }
 
     
@@ -41,7 +45,6 @@ public class BallHandler : MonoBehaviour
 
     private void Fire()
     {
-        //new
         if(_ballsCount <= 1)
         {
             base.Invoke("MakeANewCircle", 0.4f);
@@ -57,20 +60,18 @@ public class BallHandler : MonoBehaviour
 
     private void MakeANewCircle()
     {
-        //new
         GameObject[] array = GameObject.FindGameObjectsWithTag("circle");
         GameObject completedCircle = GameObject.Find("Circle" + _circleNumber);
 
-        for(int i = 0; i < 24; i++)
-            completedCircle.transform.GetChild(i).gameObject.SetActive(false);
-        
+        for(int i = 0; i < 24; i++) // part of circle which activated will be off. 
+            completedCircle.transform.GetChild(i).gameObject.SetActive(false); 
 
         completedCircle.transform.GetChild(24).gameObject.GetComponent<MeshRenderer>().material.color = Color.green; // Circle will be green after hitting.
 
         if(completedCircle.GetComponent<iTween>())
             completedCircle.GetComponent<iTween>().enabled = false;
 
-        foreach(GameObject target in array)
+        foreach(GameObject target in array) // Animation
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
         _circleNumber++;
 
