@@ -19,7 +19,7 @@ public class ColorChanger : MonoBehaviour
             StartCoroutine(ChangeColor(target.gameObject, Color.red));
             base.GetComponent<Rigidbody>().AddForce(Vector3.down * 50, ForceMode.Impulse); // Ball movement after target hiting;
             //target.gameObject.name = "Is colored by Red";
-
+            
 
             Destroy(base.gameObject, .5f);
         }

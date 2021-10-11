@@ -17,11 +17,12 @@ public class BallHandler : MonoBehaviour
 
     //new
     private int _ballsCount;
-    private int _circleNumber;
+    private int _circleNumber = 0;
 
 
     private void Start()
     {
+
         GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
         circle.transform.position = new Vector3(0, 20, 23);
         circle.name = "Circle" + _circleNumber;
@@ -58,15 +59,16 @@ public class BallHandler : MonoBehaviour
     {
         //new
         GameObject[] array = GameObject.FindGameObjectsWithTag("circle");
-        GameObject gameObject = GameObject.Find("Circle" + _circleNumber);
-        for(int i = 0; i < 24; i++)
-        {
-            gameObject.transform.GetChild(i).gameObject.SetActive(false);
-        }
-        gameObject.transform.GetChild(24).gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+        GameObject completedCircle = GameObject.Find("Circle" + _circleNumber);
 
-        if(gameObject.GetComponent<iTween>())
-            gameObject.GetComponent<iTween>().enabled = false;
+        for(int i = 0; i < 24; i++)
+            completedCircle.transform.GetChild(i).gameObject.SetActive(false);
+        
+
+        completedCircle.transform.GetChild(24).gameObject.GetComponent<MeshRenderer>().material.color = Color.green; // Circle will be green after hitting.
+
+        if(completedCircle.GetComponent<iTween>())
+            completedCircle.GetComponent<iTween>().enabled = false;
 
         foreach(GameObject target in array)
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
