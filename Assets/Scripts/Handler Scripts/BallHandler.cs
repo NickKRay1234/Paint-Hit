@@ -8,29 +8,24 @@ using UnityEngine;
 
 public class BallHandler : MonoBehaviour
 {
+
+    public static float rotationSpeed = 100;
+    public static float rotationTime = 3;
+
     [SerializeField] private GameObject _ball;
     [SerializeField] private GameObject _dummyBall;
     [SerializeField] private GameObject[] _circles;
     [SerializeField] private GameObject[] _array;
 
-
-
-    public static float rotationSpeed = 100;
     private float _speed = 100;
-
-    //new
     private int _ballsCount;
     private int _circleNumber = 0;
 
 
     private void Start()
     {
-        GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
-        circle.transform.position = new Vector3(0, 20, 23);
-        circle.name = "Circle" + _circleNumber;
-
-
-        MakeANewCircle();
+        CircleCreating();
+        ColorAndAnimatiorSwitcher();
         _ballsCount = 4;
 
         
@@ -47,7 +42,7 @@ public class BallHandler : MonoBehaviour
     {
         if(_ballsCount <= 1)
         {
-            base.Invoke("MakeANewCircle", 0.4f);
+            base.Invoke("ColorAndAnimatiorSwitcher", 0.4f);
             // Disable Button for some time;
         }
 
@@ -58,7 +53,7 @@ public class BallHandler : MonoBehaviour
         clone.GetComponent<Rigidbody>().AddForce(Vector3.forward * _speed, ForceMode.Impulse); // Time does not affect on ForceMode.Impulse;
     }
 
-    private void MakeANewCircle()
+    private void ColorAndAnimatiorSwitcher()
     {
         GameObject[] array = GameObject.FindGameObjectsWithTag("circle");
         GameObject completedCircle = GameObject.Find("Circle" + _circleNumber);
@@ -73,9 +68,13 @@ public class BallHandler : MonoBehaviour
 
         foreach(GameObject target in array) // Animation
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
+        
+        CircleCreating();
+    }
+
+    private void CircleCreating()
+    {
         _circleNumber++;
-
-
         GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
         circle.transform.position = new Vector3(0, 20, 23);
         circle.name = "Circle" + _circleNumber;
