@@ -24,9 +24,8 @@ public class BallHandler : MonoBehaviour
 
     private void Start()
     {
-        CircleCreating();
+        //CircleCreating();
         ColorAndAnimatiorSwitcher();
-        _ballsCount = 4;
 
         
     }
