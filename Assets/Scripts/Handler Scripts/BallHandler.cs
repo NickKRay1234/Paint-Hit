@@ -11,6 +11,7 @@ public class BallHandler : MonoBehaviour
 
     public static float rotationSpeed = 100;
     public static float rotationTime = 3;
+    public static Color oneColor;
 
     [SerializeField] private GameObject _ball;
     [SerializeField] private GameObject _dummyBall;
@@ -21,12 +22,14 @@ public class BallHandler : MonoBehaviour
     private int _ballsCount;
     private int _circleNumber = 0;
 
+    public Color[] ChangingColors;
+    public SpriteRenderer spr;
+    public Material splashMat;
+
 
     private void Start()
     {
-        CircleCreating();
-        //ColorAndAnimatiorSwitcher();
-        _ballsCount = LevelHandlerScript.ballsCount;
+        ResetGame();
     }
 
     
@@ -34,6 +37,19 @@ public class BallHandler : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
             Fire();
+    }
+
+    private void ResetGame()
+    {
+        ChangingColors = ColorScript.colorArray;
+        oneColor = ChangingColors[0];
+        spr.color = oneColor;
+        splashMat.color = oneColor;
+        CircleCreating();
+
+        _ballsCount = LevelHandlerScript.ballsCount;
+
+        
     }
 
     private void Fire()
@@ -47,7 +63,7 @@ public class BallHandler : MonoBehaviour
         _ballsCount--;
 
         GameObject clone = Instantiate<GameObject>(_ball, _dummyBall.transform.position, Quaternion.identity); // By using Generics we don't need to cast the result to a specific type;
-        clone.GetComponent<MeshRenderer>().material.color = Color.green;
+        clone.GetComponent<MeshRenderer>().material.color = BallHandler.oneColor;
         clone.GetComponent<Rigidbody>().AddForce(Vector3.forward * _speed, ForceMode.Impulse); // Time does not affect on ForceMode.Impulse;
     }
 
@@ -59,7 +75,7 @@ public class BallHandler : MonoBehaviour
         for(int i = 0; i < 24; i++) // part of circle which activated will be off. 
             completedCircle.transform.GetChild(i).gameObject.SetActive(false); 
 
-        completedCircle.transform.GetChild(24).gameObject.GetComponent<MeshRenderer>().material.color = Color.green; // Circle will be green after hitting.
+        completedCircle.transform.GetChild(24).gameObject.GetComponent<MeshRenderer>().material.color = BallHandler.oneColor; // Circle will be green after hitting.
 
         if(completedCircle.GetComponent<iTween>())
             completedCircle.GetComponent<iTween>().enabled = false;
@@ -70,6 +86,10 @@ public class BallHandler : MonoBehaviour
         CircleCreating();
 
         _ballsCount = LevelHandlerScript.ballsCount;
+
+        oneColor = ChangingColors[_circleNumber];
+        spr.color = oneColor;
+        splashMat.color = oneColor;
     }
 
     private void CircleCreating()

@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 1853487093}
   - component: {fileID: 1853487094}
   - component: {fileID: 1853487095}
+  - component: {fileID: 1853487096}
   m_Layer: 0
   m_Name: BallHandler
   m_TagString: Untagged
@@ -438,6 +439,9 @@ MonoBehaviour:
   - {fileID: 4682476134501212182, guid: 73966c0552c74d949fc03d376a37ce8c, type: 3}
   - {fileID: 6008839439942406656, guid: 36422169e6d14572ab3487bdcef45918, type: 3}
   - {fileID: 3300177417069222324, guid: 227f8793d9ac4d9c893bea2e29637025, type: 3}
+  ChangingColors: []
+  spr: {fileID: 319, guid: 089784feaa1c47f4a1353780fc0071a9, type: 3}
+  splashMat: {fileID: 2100000, guid: 2a869e9f6b6449e1b647dcca8a1e9201, type: 2}
 --- !u!114 &1853487095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,3 +454,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa375fb50df04e4f958fc81f2539f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1853487096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853487092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07c8c8c4bee7a140a36198061850e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color1:
+  - {r: 0.30980393, g: 0.7647059, b: 0.96862745, a: 0}
+  - {r: 0.49411765, g: 0.34117648, b: 0.7607843, a: 0}
+  - {r: 0.7019608, g: 0.60784316, b: 0.85882354, a: 0}
+  - {r: 0, g: 0.53333336, b: 0.77254903, a: 0}
+  - {r: 0.9411765, g: 0.38431373, b: 0.57254905, a: 0}
+  - {r: 0.67058825, g: 0, b: 1, a: 0}
+  - {r: 0.30980393, g: 0.7647059, b: 0.96862745, a: 0}
+  - {r: 0.30980393, g: 0.7647059, b: 0.96862745, a: 0}
+  color2:
+  - {r: 0.6603774, g: 0.058561735, b: 0.058561735, a: 0}
+  - {r: 0.22915626, g: 0.7735849, b: 0.50761676, a: 0}
+  - {r: 0.6320754, g: 0.6182393, b: 0.06797788, a: 0}
+  - {r: 0.9622642, g: 0.058098912, b: 0.76232016, a: 0}
+  - {r: 0.47125396, g: 0.9528302, b: 0.10247413, a: 0}
+  - {r: 0.35651755, g: 0, b: 0.5943396, a: 0}
+  - {r: 0, g: 0.45129442, b: 1, a: 0}
+  - {r: 0.027411861, g: 0.6603774, b: 0.31870127, a: 0}
+  color3:
+  - {r: 0, g: 0.46454573, b: 1, a: 0}
+  - {r: 0.050943315, g: 1, b: 0.8254023, a: 0}
+  - {r: 0, g: 1, b: 0.16267419, a: 0}
+  - {r: 0.64266086, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.3055224, b: 0, a: 0}
+  - {r: 0.4433962, g: 0, b: 0, a: 0}
+  - {r: 1, g: 0, b: 0.97082996, a: 0}
+  - {r: 0.5870657, g: 0, b: 1, a: 0}
