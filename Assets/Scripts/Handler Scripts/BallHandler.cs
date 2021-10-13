@@ -12,7 +12,8 @@ public class BallHandler : MonoBehaviour
     public static float rotationSpeed = 100;
     public static float rotationTime = 3;
     public static Color oneColor;
-
+    public static int currentCircleNo;
+    
     [SerializeField] private GameObject _ball;
     [SerializeField] private GameObject _dummyBall;
     [SerializeField] private GameObject[] _circles;
@@ -20,7 +21,7 @@ public class BallHandler : MonoBehaviour
 
     private float _speed = 100;
     private int _ballsCount;
-    private int _circleNumber = 0;
+    private int _circleNumber;
 
     public Color[] ChangingColors;
     public SpriteRenderer spr;
@@ -48,8 +49,10 @@ public class BallHandler : MonoBehaviour
         CircleCreating();
 
         _ballsCount = LevelHandlerScript.ballsCount;
+        LevelHandlerScript.currentColor = oneColor;
 
-        
+        MakeHurdles();
+
     }
 
     private void Fire()
@@ -84,8 +87,9 @@ public class BallHandler : MonoBehaviour
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
         
         CircleCreating();
-
+        
         _ballsCount = LevelHandlerScript.ballsCount;
+        LevelHandlerScript.currentColor = oneColor;
 
         oneColor = ChangingColors[_circleNumber];
         spr.color = oneColor;
@@ -95,12 +99,27 @@ public class BallHandler : MonoBehaviour
     private void CircleCreating()
     {
         _circleNumber++;
+        currentCircleNo = _circleNumber;
         GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
         circle.transform.position = new Vector3(0, 20, 23);
         circle.name = "Circle" + _circleNumber;
     }
 
+    void MakeHurdles()
+    {
+        if (_circleNumber == 1)
+            FindObjectOfType<LevelHandlerScript>().MakeHurdles1();
+        if (_circleNumber == 2)
+            FindObjectOfType<LevelHandlerScript>().MakeHurdles2();
+        if (_circleNumber == 3)
+            FindObjectOfType<LevelHandlerScript>().MakeHurdles3();
+        if (_circleNumber == 4)
+            FindObjectOfType<LevelHandlerScript>().MakeHurdles4();
+        if (_circleNumber == 5)
+            FindObjectOfType<LevelHandlerScript>().MakeHurdles5();
+    }
 
+    
 
 
 }
