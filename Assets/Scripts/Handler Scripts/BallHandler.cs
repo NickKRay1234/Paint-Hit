@@ -24,10 +24,9 @@ public class BallHandler : MonoBehaviour
 
     private void Start()
     {
-        //CircleCreating();
-        ColorAndAnimatiorSwitcher();
-
-        
+        CircleCreating();
+        //ColorAndAnimatiorSwitcher();
+        _ballsCount = LevelHandlerScript.ballsCount;
     }
 
     
@@ -69,6 +68,8 @@ public class BallHandler : MonoBehaviour
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
         
         CircleCreating();
+
+        _ballsCount = LevelHandlerScript.ballsCount;
     }
 
     private void CircleCreating()
