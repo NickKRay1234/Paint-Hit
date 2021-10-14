@@ -41,8 +41,12 @@ public class BallHandler : MonoBehaviour
 
     private void ResetGame()
     {
+        _circleNumber = 1;
         ChangingColors = ColorScript.colorArray;
         oneColor = ChangingColors[0];
+
+        ChangeBallsCount();
+
         spr.color = oneColor;
         splashMat.color = oneColor;
         CircleCreating();
@@ -84,7 +88,9 @@ public class BallHandler : MonoBehaviour
         _ballsCount--;
 
         if (_ballsCount >= 0)
-            balls[ballsCount].enabled = false;
+            balls[_ballsCount].enabled = false;
+
+        ChangeBallsCount();
 
         GameObject clone = Instantiate<GameObject>(_ball, _dummyBall.transform.position, Quaternion.identity); // By using Generics we don't need to cast the result to a specific type;
         clone.GetComponent<MeshRenderer>().material.color = BallHandler.oneColor;
@@ -108,7 +114,9 @@ public class BallHandler : MonoBehaviour
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
         
         CircleCreating();
-        
+        ChangeBallsCount();
+
+
         _ballsCount = LevelHandlerScript.ballsCount;
         LevelHandlerScript.currentColor = oneColor;
 
@@ -132,13 +140,13 @@ public class BallHandler : MonoBehaviour
         foreach (GameObject gameObject in array)
             Destroy(gameObject.gameObject);
         _gameFail = false;
-        FindObjectOfType<LevelsHandlerScript>().UpgradeLevel();
+        FindObjectOfType<LevelHandlerScript>().UpgradeLevel();
         ResetGame();
     }
 
     private void ChangeBallsCount()
     {
-        _ballsCount = LevelsHandlerScript.ballsCount;
+        _ballsCount = LevelHandlerScript.ballsCount;
         _dummyBall.GetComponent<MeshRenderer>().material.color = oneColor;
 
         for (int i = 0; i < balls.Length; i++)

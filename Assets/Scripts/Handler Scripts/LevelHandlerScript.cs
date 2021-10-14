@@ -25,7 +25,7 @@ public class LevelHandlerScript : MonoBehaviour
         UpgradeLevel();
     }
 
-    private void UpgradeLevel()
+    public void UpgradeLevel()
     {
         currentLevel = PlayerPrefs.GetInt("C_Level", 1);
         //PlayerPrefs.SetInt("C_Level", 1);
