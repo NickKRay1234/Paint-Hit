@@ -34,11 +34,11 @@ public class BallHandler : MonoBehaviour
     }
 
     
-    private void Update()
+    /*private void Update()
     {
         if(Input.GetMouseButtonDown(0))
             Fire();
-    }
+    }*/
 
     private void ResetGame()
     {
@@ -55,7 +55,7 @@ public class BallHandler : MonoBehaviour
 
     }
 
-    private void Fire()
+    public void Fire()
     {
         if(_ballsCount <= 1)
         {
