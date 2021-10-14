@@ -39,13 +39,6 @@ public class BallHandler : MonoBehaviour
         ResetGame();
     }
 
-
-    /*private void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-            Fire();
-    }*/
-
     private void ResetGame()
     {
         ChangingColors = ColorScript.colorArray;
@@ -90,6 +83,9 @@ public class BallHandler : MonoBehaviour
 
         _ballsCount--;
 
+        if (_ballsCount >= 0)
+            balls[ballsCount].enabled = false;
+
         GameObject clone = Instantiate<GameObject>(_ball, _dummyBall.transform.position, Quaternion.identity); // By using Generics we don't need to cast the result to a specific type;
         clone.GetComponent<MeshRenderer>().material.color = BallHandler.oneColor;
         clone.GetComponent<Rigidbody>().AddForce(Vector3.forward * _speed, ForceMode.Impulse); // Time does not affect on ForceMode.Impulse;
@@ -128,6 +124,32 @@ public class BallHandler : MonoBehaviour
         GameObject circle = Instantiate(_circles[Random.Range(0, 4)]);
         circle.transform.position = new Vector3(0, 20, 23);
         circle.name = "Circle" + _circleNumber;
+    }
+
+    private void DeleteAllCircles()
+    {
+        GameObject[] array = GameObject.FindGameObjectsWithTag("circle");
+        foreach (GameObject gameObject in array)
+            Destroy(gameObject.gameObject);
+        _gameFail = false;
+        FindObjectOfType<LevelsHandlerScript>().UpgradeLevel();
+        ResetGame();
+    }
+
+    private void ChangeBallsCount()
+    {
+        _ballsCount = LevelsHandlerScript.ballsCount;
+        _dummyBall.GetComponent<MeshRenderer>().material.color = oneColor;
+
+        for (int i = 0; i < balls.Length; i++)
+            balls[i].enabled = false;
+
+        for(int j = 0; j < _ballsCount; j++)
+        {
+            balls[j].enabled = true;
+            balls[j].color = oneColor;
+        }
+
     }
 
     void MakeHurdles()
