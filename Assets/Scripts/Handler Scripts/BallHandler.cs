@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 
 /* BallHandler makes balls shoot in circles
@@ -22,6 +23,11 @@ public class BallHandler : MonoBehaviour
     private float _speed = 100;
     private int _ballsCount;
     private int _circleNumber;
+    private int _heartNumber;
+
+    private bool _gameFail;
+    [SerializeField] private Image[] balls;
+    [SerializeField] private GameObject[] Hearts;
 
     public Color[] ChangingColors;
     public SpriteRenderer spr;
@@ -33,7 +39,7 @@ public class BallHandler : MonoBehaviour
         ResetGame();
     }
 
-    
+
     /*private void Update()
     {
         if(Input.GetMouseButtonDown(0))
@@ -51,9 +57,28 @@ public class BallHandler : MonoBehaviour
         _ballsCount = LevelHandlerScript.ballsCount;
         LevelHandlerScript.currentColor = oneColor;
 
+        _heartNumber = PlayerPrefs.GetInt("hearts", 1);
+        if (_heartNumber == 0)
+            PlayerPrefs.SetInt("hearts", 1);
+        _heartNumber = PlayerPrefs.GetInt("hearts");
+
+        for (int i = 0; i < _heartNumber; i++)
+        {
+            Hearts[i].SetActive(false);
+        }
+
         MakeHurdles();
 
     }
+
+    public void HeartsLow()
+    {
+        _heartNumber--;
+        PlayerPrefs.SetInt("hearts", _heartNumber);
+        Hearts[_heartNumber].SetActive(false);
+    }
+
+
 
     public void Fire()
     {
