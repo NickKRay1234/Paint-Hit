@@ -14,6 +14,10 @@ public class BallHandler : MonoBehaviour
     public static float rotationTime = 3;
     public static Color oneColor;
     public static int currentCircleNo;
+    public GameObject btn;
+    public GameObject levelComplete;
+    public GameObject failScreen;
+    public GameObject startGameScreen;
     
     [SerializeField] private GameObject _ball;
     [SerializeField] private GameObject _dummyBall;
@@ -28,6 +32,9 @@ public class BallHandler : MonoBehaviour
     private bool _gameFail;
     [SerializeField] private Image[] balls;
     [SerializeField] private GameObject[] Hearts;
+
+    public Text total_balls_text;
+    public Text count_balls_text;
 
     public Color[] ChangingColors;
     public SpriteRenderer spr;
@@ -148,6 +155,8 @@ public class BallHandler : MonoBehaviour
     {
         _ballsCount = LevelHandlerScript.ballsCount;
         _dummyBall.GetComponent<MeshRenderer>().material.color = oneColor;
+        total_balls_text.text = string.Empty + LevelHandlerScript.totalCircles;
+        count_balls_text.text = string.Empty + _circleNumber;
 
         for (int i = 0; i < balls.Length; i++)
             balls[i].enabled = false;
@@ -174,6 +183,19 @@ public class BallHandler : MonoBehaviour
             FindObjectOfType<LevelHandlerScript>().MakeHurdles5();
     }
 
+    public void FailGame()
+    {
+        /*gameFailSound.Play();
+        _gameFail = true;
+        Invoke("FailScreen", 1);
+        btn.SetActive(false);
+        StopCircle();*/
+    }
+
+    public void StopCircle()
+    {
+
+    }
     
 
 

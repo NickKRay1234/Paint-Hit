@@ -56,4 +56,14 @@ public class ColorChanger : MonoBehaviour
         Destroy(base.gameObject); // Ball is destroyed;
     }
 
+    void HeartsFun(GameObject g)
+    {
+        int @int = PlayerPrefs.GetInt("hearts");
+        if(@int == 1)
+        {
+            FindObjectOfType<BallHandler>().FailGame();
+            FindObjectOfType<BallHandler>().HeartsLow();
+        }
+    }
+
 }
