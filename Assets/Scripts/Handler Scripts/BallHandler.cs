@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,7 @@ public class BallHandler : MonoBehaviour
 
     public Text total_balls_text;
     public Text count_balls_text;
+    public Text levelCompleteText;
 
     public Color[] ChangingColors;
     public SpriteRenderer spr;
@@ -194,6 +196,38 @@ public class BallHandler : MonoBehaviour
 
     public void StopCircle()
     {
+
+    }
+
+    IEnumerator LevelCompleteScreen()
+    {
+        _gameFail = true;
+        GameObject oldCircle = GameObject.Find("Cirlce" + _circleNumber);
+        for(int i = 0; i < 24; i++)
+        {
+            oldCircle.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
+        }
+        oldCircle.transform.GetChild(24).gameObject.GetComponent<MeshRenderer>().material.color = oneColor;
+        oldCircle.transform.GetChild(24).gameObject.GetComponent<MonoBehaviour>().enabled = false;
+        if (oldCircle.GetComponent<iTween>())
+            oldCircle.GetComponent<iTween>().enabled = false;
+        btn.SetActive(false);
+        yield return new WaitForSeconds(2);
+        levelComplete.SetActive(true);
+        levelCompleteText.text = string.Empty + LevelHandlerScript.currentLevel;
+        yield return new WaitForSeconds(1);
+        GameObject[] oldCircles = GameObject.FindGameObjectsWithTag("cirlce");
+        foreach (GameObject gameObject in oldCircles)
+            Destroy(gameObject.gameObject);
+
+        yield return new WaitForSeconds(1);
+        int currentLevel = PlayerPrefs.GetInt("C_Level");
+        currentLevel++;
+        PlayerPrefs.SetInt("C_Level", currentLevel);
+        GameObject.FindObjectOfType<LevelHandlerScript>().UpgradeLevel();
+        ResetGame();
+        levelComplete.SetActive(false);
+        _gameFail = false;
 
     }
     
