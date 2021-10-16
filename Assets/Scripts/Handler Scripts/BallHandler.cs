@@ -19,6 +19,8 @@ public class BallHandler : MonoBehaviour
     public GameObject levelComplete;
     public GameObject failScreen;
     public GameObject startGameScreen;
+    public GameObject circleEffect;
+    public GameObject completeEffect;
     
     [SerializeField] private GameObject _ball;
     [SerializeField] private GameObject _dummyBall;
@@ -41,6 +43,9 @@ public class BallHandler : MonoBehaviour
     public Color[] ChangingColors;
     public SpriteRenderer spr;
     public Material splashMat;
+
+    public AudioSource completeSound;
+    public AudioSource gameFailSound;
 
 
     private void Start()
@@ -86,10 +91,12 @@ public class BallHandler : MonoBehaviour
 
 
 
+
     public void Fire()
     {
         if(_ballsCount <= 1)
         {
+            StartCoroutine(HideBtn());
             base.Invoke("ColorAndAnimatiorSwitcher", 0.4f);
             // Disable Button for some time;
         }
@@ -185,19 +192,38 @@ public class BallHandler : MonoBehaviour
             FindObjectOfType<LevelHandlerScript>().MakeHurdles5();
     }
 
+
     public void FailGame()
     {
-        /*gameFailSound.Play();
+        gameFailSound.Play();
         _gameFail = true;
         Invoke("FailScreen", 1);
         btn.SetActive(false);
-        StopCircle();*/
+        StopCircle();
     }
 
     public void StopCircle()
     {
-
+        GameObject gameObject = GameObject.Find("Circle" + _circleNumber);
+        gameObject.transform.GetComponent<MonoBehaviour>().enabled = false;
+        if (gameObject.GetComponent<iTween>())
+            gameObject.GetComponent<iTween>().enabled = false;
     }
+
+    void FailScreen()
+    {
+        failScreen.SetActive(true);
+    }
+
+    IEnumerator HideBtn()
+    {
+        if(!_gameFail)
+        {
+            btn.SetActive(false);
+            yield return new WaitForSeconds(1);
+        }
+    }
+
 
     IEnumerator LevelCompleteScreen()
     {
