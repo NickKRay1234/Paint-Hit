@@ -15,6 +15,7 @@ public class BallHandler : MonoBehaviour
     public static float rotationTime = 3;
     public static Color oneColor;
     public static int currentCircleNo;
+    private static int CircleCount;
     public GameObject btn;
     public GameObject levelComplete;
     public GameObject failScreen;
@@ -26,6 +27,7 @@ public class BallHandler : MonoBehaviour
     [SerializeField] private GameObject _dummyBall;
     [SerializeField] private GameObject[] _circles;
     [SerializeField] private GameObject[] _array;
+
 
     private float _speed = 100;
     private int _ballsCount;
@@ -40,7 +42,7 @@ public class BallHandler : MonoBehaviour
     public Text count_balls_text;
     public Text levelCompleteText;
 
-    public Color[] ChangingColors;
+    private Color[] ChangingColors;
     public SpriteRenderer spr;
     public Material splashMat;
 
@@ -58,6 +60,8 @@ public class BallHandler : MonoBehaviour
         _circleNumber = 1;
         ChangingColors = ColorScript.colorArray;
         oneColor = ChangingColors[0];
+        spr.color = oneColor;
+        splashMat.color = oneColor;
 
         ChangeBallsCount();
 
@@ -130,15 +134,20 @@ public class BallHandler : MonoBehaviour
             iTween.MoveBy(target, iTween.Hash(new object[] { "y", -2.98f, "easeType", iTween.EaseType.spring, "time", 0.5 }));
         
         CircleCreating();
-        ChangeBallsCount();
+        //ChangeBallsCount();
 
 
         _ballsCount = LevelHandlerScript.ballsCount;
-        LevelHandlerScript.currentColor = oneColor;
+        
 
         oneColor = ChangingColors[_circleNumber];
         spr.color = oneColor;
         splashMat.color = oneColor;
+
+        LevelHandlerScript.currentColor = oneColor;
+        MakeHurdles();
+        CircleCount++;
+        ChangeBallsCount();
     }
 
     private void CircleCreating()

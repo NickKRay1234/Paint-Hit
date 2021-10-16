@@ -26,8 +26,11 @@ public class ColorChanger : MonoBehaviour
         }
         else
         {
+            GameObject.Find("hitSound").GetComponent<AudioSource>().Play();
             base.gameObject.GetComponent<Collider>().enabled = false; // Ball is unvisible;
-
+            GameObject splash = Instantiate(Resources.Load("splash1") as GameObject);
+            splash.transform.parent = transform.gameObject.transform;
+            Destroy(splash, 0.1f);
             // Creating and destroying a splash
             GameObject SampleSplash = Instantiate(_splash) as GameObject;
             SampleSplash.transform.parent = target.gameObject.transform;
